@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Functions v2</title>
+    <script>
+        function getGreeting(hour) {
+            let greeting;
+
+            switch (true) {
+                case (hour >= 5 && hour < 12):
+                    greeting = "Good morning";
+                    break;
+                case (hour >= 12 && hour < 18):
+                    greeting = "Good afternoon";
+                    break;
+                case (hour >= 18 && hour < 21):
+                    greeting = "Good evening";
+                    break;
+                default:
+                    greeting = "Good night";
+            }
+
+            return greeting;
+        }
+
+        function capitalizeFirstLetter(name) {
+            return name.charAt(0).toUpperCase() + name.slice(1);
+        }
+
+        function getCurrentDateTime() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            return new Date().toLocaleString('en-US', options);
+        }
+
+        function validEmail(email) {
+            var emailRegex = /[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}/;
+            return emailRegex.test(email);
+        }
+
+        function getEmail() {
+            let email;
+            while (true) {
+                email = prompt("Please enter your email address:");
+                if (validEmail(email)) {
+                    document.getElementById("email-info").innerText = `Email entered: ${email}`;
+                    break;
+                } else {
+                    alert("Invalid email address. Please try again.");
+                }
+            }
+            return email;
+        }
+
+        function displayGreeting() {
+            const name = prompt("Please enter your name:");
+            const currentHour = new Date().getHours();
+            const greeting = getGreeting(currentHour);
+            const capitalizedName = capitalizeFirstLetter(name);
+            const fullGreeting = `${greeting} ${capitalizedName}!`;
+
+            document.getElementById("greeting").innerText = fullGreeting;
+
+            const currentDateTime = getCurrentDateTime();
+            document.getElementById("date-time").innerText = `Current date and time: ${currentDateTime}`;
+        }
+
+        window.onload = function() {
+            displayGreeting();
+            getEmail();
+            var score = myQuiz(); 
+            displayScore(score);
+        };
+    </script>
+    <script src="trivia.js"></script>
+</head>
+
+<body>
+   <h1 id="greeting">Greetings!</h1>
+    <h1>Functions 2.0</h1>
+    <h2 id="date-time"></h2>
+    <h3 id="email-info"></h3>
+    <div id="score"></div> 
+    <div id="percentage"></div> 
+</body>
+</html>
